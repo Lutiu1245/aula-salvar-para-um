@@ -1,5 +1,6 @@
 package com.devsuperior.aula.services;
 
+import com.devsuperior.aula.DTO.PersonDTO;
 import com.devsuperior.aula.DTO.PersonDepartamentDTO;
 import com.devsuperior.aula.entities.Department;
 import com.devsuperior.aula.entities.Person;
@@ -28,6 +29,18 @@ public class PersonService {
         person.setDepartment(department);
         person = personRepository.save(person);
         return new PersonDepartamentDTO(person);
+    }
+
+    public  PersonDTO insert(PersonDTO personDTO) {
+        Person person = new Person();
+        person.setName(personDTO.getName());
+        person.setSalary(personDTO.getSalary());
+
+        Department department = departmentRepository.getReferenceById(personDTO.getDepartmentId());
+
+        person.setDepartment(department);
+        person = personRepository.save(person);
+        return new PersonDTO(person);
     }
 
     public void CopyPerson(Person person, PersonDepartamentDTO personDepartamentDTO) {
